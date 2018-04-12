@@ -131,10 +131,11 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = '/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ADMIN_SITE_HEADER = "Foltter"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+MEDIA_URL = '/static/media/'
+
+ADMIN_SITE_HEADER = "TINDERFOOD"
 
 SITE_ID = 1
 
