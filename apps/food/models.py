@@ -13,6 +13,9 @@ class DishFood(models.Model):
     photo = models.ImageField(null=True, blank=True, upload_to='dishfood/')
     description = models.CharField(blank=True, null=True, max_length=5000)
 
+    def __str__(self):
+        return "{} {}".format(self.name, self.description)
+
 
 class ClientListFood(models.Model):
     name = models.CharField(max_length=150, blank=True, db_index=True)
