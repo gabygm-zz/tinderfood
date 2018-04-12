@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from rest_framework import status
@@ -7,6 +8,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.food.models import DishFood, ClientListFood, Client, ListItem
+
+@login_required()
+def home(request):
+    context = {'dishes': DishFood.objects.all()}
+    return render(request, 'home.html', context=context)
 
 
 class FishFoodLikeView(APIView):

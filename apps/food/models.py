@@ -10,6 +10,7 @@ class Client(models.Model):
 class DishFood(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     likes = models.PositiveSmallIntegerField(default=0)
+    photo = models.ImageField(null=True, blank=True, upload_to='dishfood/')
     description = models.CharField(blank=True, null=True, max_length=5000)
 
 
@@ -18,7 +19,6 @@ class ClientListFood(models.Model):
     client = models.ForeignKey(Client, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #TODO default list favorites dish food
 
 
 class ListItem(models.Model):

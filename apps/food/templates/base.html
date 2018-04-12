@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/tinderesque.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    {% block extrahead %}
+        <!-- content extra head-->
+    {% endblock extrahead %}
+</head>
+<body>
+ <section>
+    <h3 class="text-center">TINDER FOOD</h3>
+    <div class="cardcontainer list">
+      <ul class="cardlist">
+           {% block content %}
+                    <!-- content page -->
+           {% endblock %}
+          <!--<li class="card current">
+              <img style="border-radius: 5% " width="100%" height="100%" src="{% static 'food1.jpeg' %}">
+              <p class="h5 text-center">Dish 1</p>
+          </li>
+          <li class="card"><img width="100%" height="100%" src="{% static 'food1.jpeg' %}"></li>-->
+
+      </ul>
+      <span class="nopes h6"><strong>0</strong></span>
+        <button class="but-nope">&#x2716;</button>
+        <button class="but-yay">&#10084;</button>
+      <span class="yays h6"><strong>0</strong></span>
+    </div>
+  </section>
+    {% block extrajs %}
+        <!-- extra content js -->
+    {% endblock extrajs %}
+<script src="{% static 'js/tinderesque.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script>
+  // colour emoji are better
+  if (navigator.userAgent.indexOf('Macintosh') !== -1) {
+    document.body.classList.add('ismac');
+  }
+
+  document.body.addEventListener('nopecard', function(ev) {
+    // console.log(ev.detail);
+  });
+  document.body.addEventListener('yepcard', function(ev) {
+    // console.log(ev.detail);
+  });
+  document.body.addEventListener('deckempty', function(ev) {
+    // console.log(ev.detail);
+  });
+  document.body.addEventListener('cardchosen', function(ev) {
+    // console.log(ev.detail);
+  });
+
+
+  document.body.addEventListener('nopecard', function(ev) {
+    var container = ev.detail.container;
+    var label = container.querySelector('.nopes');
+    if (label) {
+      var nopes = +container.nopes || 0;
+      nopes++;
+      container.nopes = nopes;
+      label.innerHTML = container.nopes;
+    }
+  });
+
+  document.body.addEventListener('yepcard', function(ev) {
+    var container = ev.detail.container;
+    var label = container.querySelector('.yays');
+    if (label) {
+      var yeps = +container.yeps || 0;
+      yeps++;
+      container.yeps = yeps;
+      label.innerHTML = container.yeps;
+    }
+  });
+
+  document.body.addEventListener('deckempty', function(ev) {
+    document.location.href = '{% url 'home' %}';
+  });
+
+  document.body.addEventListener('keyup', function(ev){
+    if (ev.which === 39) {
+      document.querySelector('.but-yay').click();
+    }
+    if (ev.which === 37) {
+      document.querySelector('.but-nope').click();
+    }
+  });
+</script>
+
+</body>
+</html>
