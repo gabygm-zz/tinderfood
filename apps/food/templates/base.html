@@ -15,25 +15,17 @@
 <body>
  <section>
     <h3 class="text-center">TINDER FOOD</h3>
-    <div class="cardcontainer list">
-      <ul class="cardlist">
-           {% block content %}
-                    <!-- content page -->
-           {% endblock %}
-      </ul>
-      <span class="nopes h6"><strong>0</strong></span>
-        <button class="but-nope">&#x2716;</button>
-        <button class="but-yay">&#10084;</button>
-      <span class="yays h6"><strong>0</strong></span>
-    </div>
+     {% block content %}
+         <!-- content page -->
+     {% endblock %}
   </section>
-    {% block extrajs %}
-        <!-- extra content js -->
-    {% endblock extrajs %}
     <script src="{% static 'js/tinderesque.js' %}"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    {% block extrajs %}
+        <!-- extra content js -->
+    {% endblock extrajs %}
 </body>
 </html>

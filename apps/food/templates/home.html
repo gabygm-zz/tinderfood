@@ -1,22 +1,36 @@
 {% extends 'base.html' %} {% load staticfiles %}
 {% block content %}
     <!-- content page -->
-    {% for dish in dishes %}
-        {% if forloop.first %}
-            <li class="card current">
-             <img style="border-radius: 5% " width="100%" height="100%" src="{{dish.photo.url}}">
-              <p class="h5 text-center">{{ dish.name }}</p>
-            </li>
-        {% else %}
-            <li class="card">
-             <img style="border-radius: 5% " width="100%" height="100%" src="{{dish.photo.url}}">
-              <p class="h5 text-center">{{ dish.name }}</p>
-          </li>
-        {% endif %}
-    {% endfor %}
+    <div class="cardcontainer list">
+          <ul class="cardlist">
+                {% for dish in dishes %}
+                    {% if forloop.first %}
+                        <li class="card current" id="{{ dish.id }}">
+                         <img style="border-radius: 5% " width="100%" height="100%" src="{{dish.photo.url}}">
+                          <p class="h5 text-center">{{ dish.name }}</p>
+                        </li>
+                    {% else %}
+                        <li class="card" id="{{ dish.id }}">
+                         <img style="border-radius: 5% " width="100%" height="100%" src="{{dish.photo.url}}">
+                          <p class="h5 text-center">{{ dish.name }}</p>
+                      </li>
+                    {% endif %}
+                {% endfor %}
+          </ul>
+          <span class="nopes h6"><strong>0</strong></span>
+            <button class="but-nope">&#x2716;</button>
+            <button class="but-yay">&#10084;</button>
+          <span class="yays h6"><strong>0</strong></span>
+    </div>
+
+
+
+
 {% endblock %}
 {% block extrajs %}
-    <script>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+          window.CSRF_TOKEN = "{{ csrf_token }}";
           // colour emoji are better
           if (navigator.userAgent.indexOf('Macintosh') !== -1) {
             document.body.classList.add('ismac');
@@ -68,6 +82,24 @@
               document.querySelector('.but-nope').click();
             }
           });
+
+
+         $(".but-yay").on("click", function(){
+             let id_dish = $(".current").attr("id");
+             $.ajax({
+                    method: "put",
+                    url: "{% url 'liked' 0 %}".replace("0", id_dish),
+                   beforeSend: function(xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", window.CSRF_TOKEN);
+                    },
+                    data: {"id":"{{product.id}}","ean": "{{ product.ean}}"},
+                   success: function(resp){
+                   },
+                   error: function(resp){
+                   }
+             });
+         });
+    });
     </script>
 
 {% endblock extrajs %}

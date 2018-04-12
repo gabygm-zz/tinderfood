@@ -29,6 +29,6 @@ class FishFoodLikeView(APIView):
             dish_food.likes += 1
             dish_food.save()
         obj, created = ClientListFood.objects.get_or_create(name="favorite_dishes", client=client)
-        item, created = ListItem.objects.get_or_create(list=obj, item=fish_id)
+        obj, created = ListItem.objects.get_or_create(list=obj, item=dish_food)
 
         return Response('liked', status=status.HTTP_200_OK)
