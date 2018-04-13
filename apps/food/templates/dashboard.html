@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% load staticfiles %}
+{% block content %}
+ <h3 class="text-center">Dashboard</h3>
+     <h3 class="text-center">Popular Products</h3><hr>
+    {% for product in popular_products %}
+        <div class="text-center">
+         <img width="30" height="30" src="{{ product.photo.url }}">
+         <strong>{{ product.name }}</strong>
+        </div>
+    {% endfor %}
+
+    <h3 class="text-center">Preferencias Clientes</h3><hr>
+    {% for choice in clients %}
+        <div class="text-center">
+         <strong>{{ choice.client.user }}</strong>
+         {% for choice in clients %}
+           <em>{{ choice.category }}</em>
+         {% endfor %}
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

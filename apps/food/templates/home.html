@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% load staticfiles %}
 {% block content %}
     <!-- content page -->
+     <h3 class="text-center">TINDER FOOD</h3>
     <div class="cardcontainer list">
+
           <ul class="cardlist">
                 {% for dish in dishes %}
                     {% if forloop.first %}
@@ -29,8 +31,7 @@
 {% endblock %}
 {% block extrajs %}
     <script type="text/javascript">
-    $( document ).ready(function() {
-          window.CSRF_TOKEN = "{{ csrf_token }}";
+
           // colour emoji are better
           if (navigator.userAgent.indexOf('Macintosh') !== -1) {
             document.body.classList.add('ismac');
@@ -82,10 +83,12 @@
               document.querySelector('.but-nope').click();
             }
           });
-
+ $( document ).ready(function() {
+          window.CSRF_TOKEN = "{{ csrf_token }}";
 
          $(".but-yay").on("click", function(){
              let id_dish = $(".current").attr("id");
+             console.log("dsdsasdas");
              $.ajax({
                     method: "put",
                     url: "{% url 'liked' 0 %}".replace("0", id_dish),

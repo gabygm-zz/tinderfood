@@ -9,5 +9,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', foodviews.home, name='home'),
     url(r'^liked/(?P<fish_id>.+)/$', staff_member_required()(foodviews.FishFoodLikeView.as_view()), name="liked"),
+    url(r'dashbaord', staff_member_required()(foodviews.Dashboard.as_view()), name="dashboard"),
 
 ]
