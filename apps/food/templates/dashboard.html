@@ -1,22 +1,50 @@
 {% extends 'base.html' %} {% load staticfiles %}
 {% block content %}
- <h3 class="text-center">Dashboard</h3>
+ <h3 class="">Dashboard</h3>
      <h3 class="text-center">Popular Products</h3><hr>
-    {% for product in popular_products %}
-        <div class="text-center">
-         <img width="30" height="30" src="{{ product.photo.url }}">
-         <strong>{{ product.name }}</strong>
-        </div>
-    {% endfor %}
+    <div class="row">
+        {% for product in popular_products %}
+            <div class="panel panel-info col-md-3">
 
-    <h3 class="text-center">Preferencias Clientes</h3><hr>
-    {% for choice in clients %}
-        <div class="text-center">
-         <strong>{{ choice.client.user }}</strong>
-         {% for choice in clients %}
-           <em>{{ choice.category }}</em>
-         {% endfor %}
-        </div>
-        <hr>
-    {% endfor %}
+                <div class="text-justify panel-heading">
+                     <img width="30" height="30" src="{{ product.photo.url }}">
+                     <strong>{{ product.name }}</strong>
+                </div>
+                <div class="panel-footer">
+                    <strong> {{ product.likes }} Likes</strong>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="">
+         <h3 class="text-center">Preferencias Clientes</h3><hr>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="text-center text-uppercase" style="vertical-align:middle">
+                    Cliente
+                </th>
+                <th class="text-center text-uppercase" style="vertical-align:middle">
+                    Preferencias
+                </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for choice in clients %}
+                <tr>
+                   <td> <strong>{{ choice.client.user }}</strong> </td>
+                   <td>
+                       {% for choice in clients %}
+                           <em>{{ choice.category }}</em>
+                       {% endfor %}
+                   </td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
